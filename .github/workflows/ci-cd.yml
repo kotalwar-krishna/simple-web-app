@@ -1,0 +1,44 @@
+name: CI/CD Pipeline
+
+# Trigger this workflow on pushes or pull requests to the main branch
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Docker
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      # Step 3: Build the Docker image
+      - name: Build Docker image
+        run: docker build -t simple-web-app .
+
+      # Step 4: Run Ansible to configure and deploy
+      - name: Install Ansible
+        run: |
+          sudo apt update
+          sudo apt install -y ansible
+
+      - name: Run Ansible playbook for deployment
+        run: ansible-playbook -i localhost, ansible/playbook.yml
+
+      # Optional: Push the Docker image to Docker Hub (if desired)
+      # - name: Log in to Docker Hub
+      #   run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      # - name: Push Docker image
+      #   run: docker tag simple-web-app your-dockerhub-username/simple-web-app:latest && docker push your-dockerhub-username/simple-web-app:latest
+
