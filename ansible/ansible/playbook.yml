@@ -1,0 +1,27 @@
+---
+- name: Set up and run the simple web app
+  hosts: localhost
+  tasks:
+    - name: Ensure Docker is installed
+      apt:
+        name: docker.io
+        state: present
+      become: true
+
+    - name: Build the Docker image
+      command: docker build -t simple-web-appp ../
+      args:
+        chdir: "../"
+      become: true
+
+    - name: Run the Docker container
+      command: docker run -d -p 8080:80 --name simple-web-app-3 simple-web-appp
+      become: true
+
+    - name: Ensure the container is running
+      docker_container:
+        name: simple-web-appp
+        state: started
+        restart_policy: always
+        image: simple-web-appp
+
