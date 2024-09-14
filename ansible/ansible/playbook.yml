@@ -2,27 +2,51 @@
 - name: Set up and run the simple web app
   hosts: localhost
   connection: local
+  become: true
   tasks:
+
+    # Task to unhold held packages (if any)
+    - name: Unhold containerd and containerd.io if held
+      shell: |
+        sudo apt-mark unhold containerd
+        sudo apt-mark unhold containerd.io
+      ignore_errors: yes
+
+    # Task to remove the conflicting containerd package if it exists
+    - name: Remove containerd package if it exists
+      apt:
+        name: containerd
+        state: absent
+        force: yes
+      ignore_errors: yes
+
+    # Task to update apt cache
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    # Task to install Docker and containerd.io
     - name: Ensure Docker is installed
       apt:
-        name: docker.io
+        name:
+          - docker.io
+          - containerd.io
         state: present
-      become: true
 
+    # Task to build the Docker image
     - name: Build the Docker image
       command: docker build -t simple-web-appp ../
       args:
         chdir: "../"
-      become: true
 
+    # Task to run the Docker container
     - name: Run the Docker container
-      command: docker run -d -p 8080:80 --name simple-web-app-3 simple-web-appp
-      become: true
+      command: docker run -d -p 8080:80 --name simple-web-app simple-web-appp
 
+    # Task to ensure the container is running
     - name: Ensure the container is running
       docker_container:
-        name: simple-web-appp
+        name: simple-web-app
         state: started
         restart_policy: always
         image: simple-web-appp
-
