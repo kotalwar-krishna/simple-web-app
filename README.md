@@ -31,6 +31,13 @@ To set up and run the application locally, follow these steps:
    docker pull krishnakotalwar/simple-web-app:latest
    docker run -d -p 8080:80 krishnakotalwar/simple-web-app:latest
    ```
+3. **Use bash script in repo**
+   clone the repo first and then run bash script. it will ask you what massage you want to print
+   ```bash
+   git clone https://github.com/your-username/simple-web-app.git
+   cd simple-web-app
+   ./run_app.sh
+   ```
 
 **Access the Application:** Open your browser and go to (`http://localhost:8080`) to see the "Hello, World !!" message.
 
