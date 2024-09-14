@@ -1,6 +1,7 @@
 ---
 - name: Set up and run the simple web app
   hosts: localhost
+  connection: local
   tasks:
     - name: Ensure Docker is installed
       apt:
