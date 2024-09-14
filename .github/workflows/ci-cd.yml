@@ -33,7 +33,7 @@ jobs:
           sudo apt install -y ansible
 
       - name: Run Ansible playbook for deployment
-        run: ansible-playbook -i localhost, ansible/playbook.yml
+        run: ansible-playbook -i localhost, ansible/ansible/playbook.yml
 
       # Optional: Push the Docker image to Docker Hub (if desired)
       # - name: Log in to Docker Hub
