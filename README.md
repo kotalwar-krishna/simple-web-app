@@ -17,8 +17,6 @@ This project is a basic web application using HTML and JavaScript. It displays a
 
 Below is the flow diagram illustrating the CI/CD pipeline:
 
-![CI/CD Flow Diagram](https://i.imgur.com/D5dkO4F.png)
-
 ## Setup and Run Locally
 To set up and run the application locally, follow these steps: 
 
