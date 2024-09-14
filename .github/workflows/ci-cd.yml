@@ -18,6 +18,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # Install Docker without pinning a specific version
+      - name: Install Docker
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker.io
+
       # Step 2: Set up Docker
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
