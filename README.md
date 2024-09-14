@@ -13,6 +13,12 @@ This project showcases a straightforward web application integrated with a CI/CD
 ## Project Overview
 This project is a basic web application using HTML and JavaScript. It displays a "Hello, World!" message and is containerized using Docker. Configuration management and deployment are automated with Ansible, and a CI/CD pipeline is set up using GitHub Actions.
 
+## Flow Diagram
+
+Below is the flow diagram illustrating the CI/CD pipeline:
+
+![CI/CD Flow Diagram](https://i.imgur.com/D5dkO4F.png)
+
 ## Setup and Run Locally
 To set up and run the application locally, follow these steps: 
 
@@ -32,7 +38,7 @@ To set up and run the application locally, follow these steps:
    docker run -d -p 8080:80 krishnakotalwar/simple-web-app:latest
    ```
 3. **Use bash script in repo**
-   clone the repo first and then run bash script. it will ask you what massage you want to print
+   clone the repo first and then run bash script take bash script outside of repo. it will ask you what massage you want to print
    ```bash
    git clone https://github.com/your-username/simple-web-app.git
    cd simple-web-app
