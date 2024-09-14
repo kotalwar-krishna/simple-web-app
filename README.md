@@ -17,6 +17,15 @@ This project is a basic web application using HTML and JavaScript. It displays a
 
 Below is the flow diagram illustrating the CI/CD pipeline:
 
+flowchart LR
+    A(Developer Pushes Code to GitHub) --> B(GitHub Actions Workflow Triggered)
+    B --> C(Build and Test with Ansible)
+    C --> D{Tests Pass?}
+    D -- Yes --> E(Push Docker Image to Docker Hub)
+    D -- No --> F(Fail Build)
+    E --> G(Local Deployment Script)
+    G --> H(Web Application Accessible Locally)
+
 ## Setup and Run Locally
 To set up and run the application locally, follow these steps: 
 
