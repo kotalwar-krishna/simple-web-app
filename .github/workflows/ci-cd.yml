@@ -41,10 +41,10 @@ jobs:
       - name: Run Ansible playbook for deployment
         run: ansible-playbook -i localhost, ansible/ansible/playbook.yml
 
-      # Optional: Push the Docker image to Docker Hub (if desired)
-      # - name: Log in to Docker Hub
-      #   run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+      # Step 6: Push the Docker image to Docker Hub
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
-      # - name: Push Docker image
-      #   run: docker tag simple-web-app your-dockerhub-username/simple-web-app:latest && docker push your-dockerhub-username/simple-web-app:latest
+      - name: Push Docker image
+        run: docker tag simple-web-app krishnakotalwar/simple-web-app:latest && docker push krishnakotalwar/simple-web-app:latest
 
