@@ -17,14 +17,7 @@ This project is a basic web application using HTML and JavaScript. It displays a
 
 Below is the flow diagram illustrating the CI/CD pipeline:
 
-flowchart LR
-    A(Developer Pushes Code to GitHub) --> B(GitHub Actions Workflow Triggered)
-    B --> C(Build and Test with Ansible)
-    C --> D{Tests Pass?}
-    D -- Yes --> E(Push Docker Image to Docker Hub)
-    D -- No --> F(Fail Build)
-    E --> G(Local Deployment Script)
-    G --> H(Web Application Accessible Locally)
+[![Flowchart](https://mermaid.ink/img/pako:eNpNkMuKAjEQRX-lyCqC_kAvHNT2MSCDjIIM9KZMyu5gOmnyGBHx3yeJvZisUrmnilN5MmElsYpdtb2LDl2A_XdjIJ0Fr-mXtB3IwSH6jjysEgvBwlaFXbxMYDabw5K_K1iIoKzxcLbulqfByam2JUdy8h64LPyKL6PSEtBIOJEPcFehg4Xx6qJpJFeFrJ8593BA7z9e76ROCfwklQysefaC2opbcvzssS12Y50N_zV92dKz4RtUGorDGK9LsOV7K1BDTYO2j55MgKNwaggjtS3Ujp8prToMWgnM-6a1BfkiD2WAfpQGNmU9uR6VTJ_7zC8NCx311LAqXSW6W8Ma80ocxmCPDyNYFVykKXM2th2rrqh9quIgMVCtsHXYj6-vP4rtik4?type=png)](https://mermaid.live/edit#pako:eNpNkMuKAjEQRX-lyCqC_kAvHNT2MSCDjIIM9KZMyu5gOmnyGBHx3yeJvZisUrmnilN5MmElsYpdtb2LDl2A_XdjIJ0Fr-mXtB3IwSH6jjysEgvBwlaFXbxMYDabw5K_K1iIoKzxcLbulqfByam2JUdy8h64LPyKL6PSEtBIOJEPcFehg4Xx6qJpJFeFrJ8593BA7z9e76ROCfwklQysefaC2opbcvzssS12Y50N_zV92dKz4RtUGorDGK9LsOV7K1BDTYO2j55MgKNwaggjtS3Ujp8prToMWgnM-6a1BfkiD2WAfpQGNmU9uR6VTJ_7zC8NCx311LAqXSW6W8Ma80ocxmCPDyNYFVykKXM2th2rrqh9quIgMVCtsHXYj6-vP4rtik4)
 
 ## Setup and Run Locally
 To set up and run the application locally, follow these steps: 
