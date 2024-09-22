@@ -15,7 +15,7 @@
 
     - name: Remove existing Docker image
       community.docker.docker_image:
-        name: krishnakotalwar/simple-web-app
+        name: simple-web-app
         tag: latest
         state: absent
       ignore_errors: yes
@@ -28,7 +28,7 @@
 
     - name: Start the Docker container
       community.docker.docker_container:
-        name: local-web-app
+        name: simple-web-app
         image: krishnakotalwar/simple-web-app:latest
         ports:
           - "80:80"
