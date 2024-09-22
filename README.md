@@ -40,9 +40,9 @@ To set up and run the application locally, follow these steps:
 3. **By Pushing changes to repo**
 Go t0 (`/ansible/hosts.ini`) and change webserver configuration according to your local machine. 
 push the changes.
-example : put <Host adreess> ansible_connection=ssh ansible_user=<user_name> ansible_password=<password> ansible_port=<port>
+**example** : put <Host adreess> ansible_connection=ssh ansible_user=<user_name> ansible_password=<password> ansible_port=<port>
 
-**Access the Application:** Open your browser and go to (`http://localhost:8080`) to see the "Hello, World !!" message.
+**Access the Application:** Open your browser and go to (`http://localhost:80`) to see the "Hello, World !!" message.
 
 ## CI/CD Pipeline Overview
 The CI/CD pipeline is set up using GitHub Actions to automate the build, test, and pushing image to dockerhub process:
