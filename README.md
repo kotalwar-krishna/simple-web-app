@@ -37,13 +37,9 @@ To set up and run the application locally, follow these steps:
    docker pull krishnakotalwar/simple-web-app:latest
    docker run -d -p 8080:80 krishnakotalwar/simple-web-app:latest
    ```
-3. **Use bash script in repo**
-   clone the repo first and then run bash script take bash script outside of repo. it will ask you what massage you want to print
-   ```bash
-   git clone https://github.com/your-username/simple-web-app.git
-   cd simple-web-app
-   ./run_app.sh
-   ```
+3. **By Pushing changes to repo**
+Go t0 (`/ansible/hosts.ini`) and change webserver configuration according to your local machine. 
+push the changes.
 
 **Access the Application:** Open your browser and go to (`http://localhost:8080`) to see the "Hello, World !!" message.
 
@@ -59,8 +55,8 @@ The workflow file (`.github/workflows/ci-cd.yml`) defines the steps for this pip
 1. Checkout the code
 2. installation of Docker
 3. Installation of ansible
-4. Run ansible playbook and test
-5. push the image to docker hub
+4. build and push the image to docker hub
+5. Run ansible playbook to pull and deploy image locally
 
 ## Dockerfile Details
 
@@ -81,25 +77,11 @@ Managing Docker containers by stopping and removing any existing ones, and then 
 
 ## Challenges and Solutions
 
-1. Ansible on Windows
-**Challenge:** Running Ansible directly on Windows is not supported natively.
-**Solution:** Used Windows Subsystem for Linux (WSL) to provide a Linux environment on the Windows machine. This allows Ansible to run within a Linux shell, and Docker Desktop was integrated with WSL to allow Docker commands to work seamlessly.
-2. GitHub Actions and Ansible Playbook Error
-**Challenge:** During the execution of the Ansible playbook in GitHub Actions, an error occurred when trying to install Docker:
-```kotlin
-Error, pkgProblemResolver::Resolve generated breaks, this may be caused by held packages.
-```
-**Solution:** Used Docker official installation script
-```yml
-      - name: Install Docker
-        run: |
-          curl -fsSL https://get.docker.com -o get-docker.sh
-          sudo sh get-docker.sh
-```
-3. The error in your Ansible playbook
-**challenge:** (pkgProblemResolver::Resolve generated breaks, this may be caused by held packages) indicates a conflict between containerd.io and containerd. To resolve this issue, you need to handle the package conflict and potential held packages during your playbook execution.
+1. Using Ansible using windows PC / Run ansible playbook Using windows PC. → Used WSL
+2. While running github action flow faced difficulties while installation of docker → Downloaded Docker from script
+3. While running workflow got to know previous image is vanishing from docker → updated github action workflow to tag previous image with run no.
+4. Connecting Local machine from Ansible playbook Running on github using WSL IP → Used ngrok
+5. Got authentication error while connecting local host from ansible playbook → used ANSIBLE_HOST_KEY_CHECKING=False
+6. Not able to connect using private key to local machine → used ansible_sudo_ pass for sudo.
 
-**Solution:**
-Remove Conflicting containerd Package: Ensure that the conflicting containerd package is removed before installing docker.io or containerd.io.
-Unhold Held Packages: If there are any held packages, you can unhold them to allow proper installation.
 
