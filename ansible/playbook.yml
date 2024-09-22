@@ -15,7 +15,7 @@
 
     - name: Remove existing Docker image
       community.docker.docker_image:
-        name: simple-web-app
+        name: krishnakotalwar/simple-web-app
         tag: latest
         state: absent
       ignore_errors: yes
