@@ -1,0 +1,35 @@
+---
+- name: Deploy test web application
+  hosts: webserver
+  become: true
+  gather_facts: yes
+  
+  tasks:
+    - name: Gather facts
+      setup:
+
+    - name: Stop existing container if running
+      community.docker.docker_container:
+        name: simple-web-app
+        state: absent
+
+    - name: Remove existing Docker image
+      community.docker.docker_image:
+        name: krishnakotalwar/simple-web-app
+        tag: latest
+        state: absent
+      ignore_errors: yes
+
+    - name: Pull latest Docker image
+      community.docker.docker_image:
+        name: krishnakotalwar/simple-web-app
+        tag: latest
+        source: pull
+
+    - name: Start the Docker container
+      community.docker.docker_container:
+        name: local-web-app
+        image: krishnakotalwar/simple-web-app:latest
+        ports:
+          - "80:80"
+        state: started

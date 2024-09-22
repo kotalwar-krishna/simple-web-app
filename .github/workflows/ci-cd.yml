@@ -28,24 +28,33 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      # Step 4: Build the Docker image
-      - name: Build Docker image
-        run: docker build -t simple-web-app .
-
-      # Step 5: Install Ansible
-      - name: Install Ansible
-        run: |
-          sudo apt update
-          sudo apt install -y ansible
-
-      # step 6: Run Ansible 
-      - name: Run Ansible playbook for deployment
-        run: ansible-playbook -i localhost, ansible/ansible/playbook.yml
-
-      # Step 7: Push the Docker image to Docker Hub
       - name: Log in to Docker Hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
+      # Step 4: Tag the existing 'latest' image with the version using GITHUB_RUN_NUMBER
+      - name: Tag previous image with version
+        run: |
+          IMAGE_NAME="krishnakotalwar/simple-web-app"
+          VERSION_TAG="${{ github.run_number }}"
+          docker pull ${IMAGE_NAME}:latest || true  # Pull latest image if it exists
+          docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${VERSION_TAG} || true
+          docker push ${IMAGE_NAME}:${VERSION_TAG} || true
+
+      #Step 5: Build Docker Image
+      - name: Build Docker image
+        run: docker build -t simple-web-app .
+
+      #Step 6: Push Docker Image
       - name: Push Docker image
         run: docker tag simple-web-app krishnakotalwar/simple-web-app:latest && docker push krishnakotalwar/simple-web-app:latest
+
+      #Step 7: Install Ansible
+      - name: Install Ansible
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ansible
+
+      #Step 8: Run Ansible Playbook to deploy image on local machine
+      - name: Run Ansible playbook
+        run: ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ansible/hosts.ini ansible/playbook.yml --extra-vars "ansible_sudo_pass=Krishna@123"
 
