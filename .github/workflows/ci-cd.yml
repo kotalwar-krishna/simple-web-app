@@ -56,5 +56,5 @@ jobs:
 
       #Step 8: Run Ansible Playbook to deploy image on local machine
       - name: Run Ansible playbook
-        run: ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ansible/hosts.ini ansible/playbook.yml --extra-vars "ansible_sudo_pass=Krishna@123"
+        run: ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ansible/hosts.ini ansible/playbook.yml
 
